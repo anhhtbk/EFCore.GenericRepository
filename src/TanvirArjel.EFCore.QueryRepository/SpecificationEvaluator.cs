@@ -106,11 +106,11 @@ namespace TanvirArjel.EFCore.GenericRepository
             // Apply ordering if expressions are set
             if (specification.OrderBy != null)
             {
-                query = specification.OrderBy(query);
+                query = specification.OrderBy(query).ThenBy("Id");
             }
-            else if (!string.IsNullOrWhiteSpace(specification.OrderByDynamic.ColumnName) && !string.IsNullOrWhiteSpace(specification.OrderByDynamic.ColumnName))
+            else if (!string.IsNullOrWhiteSpace(specification.OrderByDynamic.ColumnName) && !string.IsNullOrWhiteSpace(specification.OrderByDynamic.SortDirection))
             {
-                query = query.OrderBy(specification.OrderByDynamic.ColumnName + " " + specification.OrderByDynamic.SortDirection);
+                query = query.OrderBy(specification.OrderByDynamic.ColumnName + " " + specification.OrderByDynamic.SortDirection).ThenBy("Id");
             }
 
             return query;
